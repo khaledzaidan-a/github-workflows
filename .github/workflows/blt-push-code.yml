@@ -133,7 +133,7 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/') || startsWith(github.ref, 'refs/pull/')
         run: |
           ./vendor/bin/blt artifact:deploy --commit-msg "[BUILD ${COMMIT_SHA:0:7}] $COMMIT_MSG" $DRY_RUN --branch "${COMMIT_REF:11}-build" --no-interaction --verbose
-          [ -z "$DRY_RUN" ] && echo "🥪 Branch ${COMMIT_REF:11}-build pushed!" >> $GITHUB_STEP_SUMMARY || true
+          [ -z "$DRY_RUN" ] || cat docroot/sites/default/.gitignore && echo "🥪 Branch ${COMMIT_REF:11}-build pushed!" >> $GITHUB_STEP_SUMMARY || true
 
       - name: What is in it
         run: cat docroot/sites/default/.gitignore
